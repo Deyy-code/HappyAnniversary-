@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Annivesary!</title>
-  <link rel="icon" href="path/to/heart_favicon.ico" type="image/x-icon">
+  <title>Happy Anniversary!</title>
+
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,8 +25,8 @@
           <div class="letter">
             <div class="text">
               <em><b>Hi Baby!,</b></em><br><br>
-              <p>Would you be my Valentine?,</p>
-              <p>If you'll say yes, (please say yes)</p>
+              <p>Would you be my Valentine?</p>
+              <p>If you'll say yes (please say yes)</p>
               <p>Would you like to go on a date with me and celebrate our anniversary as well?</p><br>
               <p>Date: February 2, 2026</p>
               <p>Time: 8:00 pm</p>
@@ -45,10 +45,6 @@
       <div class="message-before-playlist">
         <p>TOUCH THE LETTER TO OPEN IT!</p>
       </div>
-
-      <div class="down-arrow" style="display: none;">
-        <span>&#x25BC;</span>
-      </div>
     </div>
   </div>
 
@@ -61,14 +57,12 @@
     <span style="left: 85%; animation-delay: 5s;"></span>
   </div>
 
+<!-- MAIN SCRIPT -->
 <script>
 const envelope = document.querySelector('.envelope-wrapper');
 const letter = document.querySelector('.letter');
-const arrow = document.querySelector('.down-arrow');
 let opened = false;
 let userHasScrolled = false;
-
-arrow.style.display = 'none';
 
 window.addEventListener('scroll', () => userHasScrolled = true);
 window.addEventListener('touchmove', () => userHasScrolled = true);
@@ -85,7 +79,12 @@ const observer = new IntersectionObserver((entries) => {
 envelope.addEventListener('click', () => {
   if (opened) return;
   opened = true;
+
   envelope.classList.remove('shake');
+  seequenceOpen();
+});
+
+function seequenceOpen() {
   envelope.classList.add('flap');
   popHearts();
 
@@ -93,18 +92,18 @@ envelope.addEventListener('click', () => {
     envelope.classList.add('open');
     letter.classList.add('slide-sequence');
     continuousHearts();
-    arrow.style.display = 'block';
 
     document.querySelectorAll('.hidden-on-load').forEach(el => {
       observer.observe(el);
     });
   }, 800);
-});
+}
 
 function popHearts() {
   const container = document.querySelector('.envelope-wrapper');
   let count = 0;
   const totalHearts = 30;
+
   const interval = setInterval(() => {
     if (count >= totalHearts) {
       clearInterval(interval);
@@ -117,22 +116,21 @@ function popHearts() {
 
 function continuousHearts() {
   const container = document.querySelector('.envelope-wrapper');
-  setInterval(() => {
-    createHeart(container);
-  }, 800);
+  setInterval(() => createHeart(container), 800);
 }
 
 function createHeart(container) {
   const heart = document.createElement('div');
   heart.classList.add('flying-heart');
-  heart.style.left = `${Math.random() * 100}%`;
-  heart.style.animationDuration = `${1 + Math.random()}s`;
-  heart.style.fontSize = `${10 + Math.random() * 20}px`;
+  heart.style.left = Math.random() * 100 + '%';
+  heart.style.animationDuration = 1 + Math.random() + 's';
+  heart.style.fontSize = 10 + Math.random() * 20 + 'px';
   container.appendChild(heart);
   setTimeout(() => heart.remove(), 5000);
 }
 </script>
 
+<!-- FLOATING SHAPES SCRIPT -->
 <script>
 const shapeContainer = document.querySelector('.floating-shapes');
 
@@ -140,7 +138,7 @@ function createShape(className, count) {
   for (let i = 0; i < count; i++) {
     const span = document.createElement('span');
     span.className = className;
-    span.style.left = Math.floor(Math.random() * 100) + '%';
+    span.style.left = Math.random() * 100 + '%';
     span.style.animationDelay = Math.random() * 5 + 's';
     shapeContainer.appendChild(span);
   }
